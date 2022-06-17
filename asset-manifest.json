@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/kitasl-chart/static/css/main.f95d6a7f.css",
-    "main.js": "/kitasl-chart/static/js/main.7c67291f.js",
+    "main.js": "/kitasl-chart/static/js/main.e1e0934e.js",
     "static/js/787.da131aeb.chunk.js": "/kitasl-chart/static/js/787.da131aeb.chunk.js",
     "static/media/logo.svg": "/kitasl-chart/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/kitasl-chart/index.html",
     "main.f95d6a7f.css.map": "/kitasl-chart/static/css/main.f95d6a7f.css.map",
-    "main.7c67291f.js.map": "/kitasl-chart/static/js/main.7c67291f.js.map",
+    "main.e1e0934e.js.map": "/kitasl-chart/static/js/main.e1e0934e.js.map",
     "787.da131aeb.chunk.js.map": "/kitasl-chart/static/js/787.da131aeb.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f95d6a7f.css",
-    "static/js/main.7c67291f.js"
+    "static/js/main.e1e0934e.js"
   ]
 }
