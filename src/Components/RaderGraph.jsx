@@ -14,7 +14,7 @@ const RaderGraph = ({resultFam,resultInno,resultMar,resultBure,firstQues,secondQ
     { culture: "マーケット文化", A: resultMar },
     { culture: "官僚文化", A: resultBure },
   ];
-  if(firstQues ===100 && secondQues ===100 && thirdQues ===100 && fourthQues ===100 && fifthQues === 100 && sixthQues ===100){
+  // if(firstQues ===100 && secondQues ===100 && thirdQues ===100 && fourthQues ===100 && fifthQues === 100 && sixthQues ===100){
     return(
       <>
         <RadarChart // レーダーチャート全体の設定を記述
@@ -48,14 +48,29 @@ const RaderGraph = ({resultFam,resultInno,resultMar,resultBure,firstQues,secondQ
           {/* グラフの下のAさんBさんの表記 */}
           <Legend />
         </RadarChart>
-        <p>家族文化{Math.round(resultFam) }pt</p>
-        <p>イノベーション文化{Math.round(resultInno) }pt</p>
-        <p>マーケット文化{Math.round(resultMar)}pt</p>
-        <p>官僚文化{Math.round(resultBure)}pt</p>
+        
+          <div className="flex">
+            <div><p>家族文化</p></div>
+            <div><p>{Math.round(resultFam) }pt</p></div>
+          </div>
+          <div className="flex">
+            <div><p>イノベーション文化</p></div>
+            <div><p>{Math.round(resultInno) }pt</p></div>
+          </div>
+          <div className="flex">
+            <div><p>マーケット文化</p></div>
+            <div><p>{Math.round(resultMar)}pt</p></div>
+          </div>
+          <div className="flex">
+            <div><p>官僚文化</p></div>
+            <div><p>{Math.round(resultBure)}pt</p></div>
+          </div>
+        
+       
       </>
     )
   }
   
-}
+// }
 
 export default RaderGraph

@@ -1,5 +1,6 @@
 import React from "react";
 import RaderGraph from "./RaderGraph";
+import UiButton from "./UIkit/UiButton";
 const Modal = ({show,setShow,resultFam,resultInno,resultMar,resultBure,firstQues,secondQues,thirdQues,fourthQues,fifthQues,sixthQues}) => {
   const closeModal = () => {
     setShow(false)
@@ -23,9 +24,13 @@ const Modal = ({show,setShow,resultFam,resultInno,resultMar,resultBure,firstQues
             resultMar={resultMar}
             resultBure={resultBure}
         />
-        <p><button onClick={closeModal}>close</button></p>
-        </div>
+        <UiButton 
+          buttonText="閉じる"
+          color="secondary"
+          onClick={closeModal}
+        ></UiButton>
         
+        </div>
       </div>
     </>
     )

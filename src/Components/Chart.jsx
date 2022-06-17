@@ -8,24 +8,35 @@ import styled from "styled-components";
 import Device from "../style/Device";
 import Header from "./Header";
 import TextField from "@material-ui/core/TextField";
-import {
-  Radar,
-  RadarChart,
-  PolarGrid,
-  Legend,
-  PolarAngleAxis,
-  PolarRadiusAxis,
-} from "recharts";
+import Rule from "./Rule";
 
-// const data = [l
-//   {culture: '家族文化', A: 120},
-//   {culture: 'イノベーション文化', A: 98},
-//   {culture: 'マーケット文化', A: 86,},
-//   {culture: '官僚文化', A: 99},
-
-// ];
+const DIV_chart = styled.div`
+  @media ${Device.tablet} {
+    padding-top: 100px;
+    padding-bottom: 20px;
+  }
+  @media ${Device.laptop} {
+    padding-top: 100px;
+  }
+`;
+const DIV_chartMain = styled.div`
+  @media ${Device.tablet} {
+  }
+`;
 const DIV_question = styled.div`
   @media ${Device.mobileS} {
+  }
+  @media ${Device.tablet} {
+    width: 80%;
+    margin: 0 auto;
+    line-height: 1.6rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+    & h1 {
+      font-size: 24px;
+    }
   }
   @media ${Device.laptop} {
     /* border: 1px solid #333; */
@@ -44,7 +55,31 @@ const DIV_question = styled.div`
     }
   }
 `;
-
+const DIV_questionPart = styled.div`
+  @media ${Device.tablet} {
+    margin-bottom: 50px;
+  }
+`;
+const DIV_button = styled.div`
+  @media ${Device.tablet} {
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 20px;
+    & button {
+      width: 100%;
+      margin: 0 auto;
+    }
+  }
+  @media ${Device.laptop} {
+    margin: 0 auto;
+    width: 500px;
+    padding-bottom: 50px;
+    & button {
+      width: 100%;
+      margin: 0 auto;
+    }
+  }
+`;
 const Chart = () => {
   // let [items, updateItems] = useState([
   //   {culture: '家族文化', A: 80},
@@ -213,301 +248,370 @@ const Chart = () => {
   const openModal = () => {
     setShow(true);
   };
-
+  // 最初に表示される診断方法についての部分
+  const [ruleShow,setRuleShow] = useState(true);
+  const closeRuleModal = () => {
+    setRuleShow(false)
+  }
   return (
-    <>
-      <Header></Header>
-      <h1>組織文化のレーダーチャート</h1>
-      <DIV_question>
-        <h1>問１</h1>
-        <p>
-          指示系統によるしっかりとした上下関係重視というよりは、上司や先輩、または（将来）部下や後輩などともゆるやかで、フレンドリーな関係性が構築されている職場がいい。同僚や上司・部下は家族の延長のような存在であってほしいし、価値観や考えはお互いしっかり共有しておきたいと思う。
-        </p>
-        <TextField
-          variant="outlined"
-          type="number"
-          onChange={(e) => {
-            setQ01Fam(e.target.value);
-          }}
-          value={q01Fam}
-        />
-        <p>
-          新しいことに積極的で、起業家精神にあふれるクリエイティブな職場がいい。同僚や上司・部下はリスクを恐れず進んで革新的な選択をしていく人たちがいい。
-        </p>
-        <TextField
-          variant="outlined"
-          type="number"
-          onChange={(e) => setQ01Inno(e.target.value)}
-          value={q01Inno}
-        />
-       
-        <p>
-          プロセスや過程での努力などではなく、結果や成果、アウトプットで評価をしてくれるような職場がいい。仕事をする上では、達成すべき目標や目的を明確に示してほしい。
-        </p>
-        <TextField
-          variant="outlined"
-          type="number"
-          onChange={(e) => setQ01Mar(e.target.value)}
-          value={q01Mar}
-        />
-        
-        <p>
-          仕事の役割分担が明確になされていて、自分が何をすべきかをしっかり指示してくれるような職場がいい。自分個人の発想やオリジナリティに基づいて臨機応変に仕事をするというよりは、どうすればよいのかという方法や手続きをきちんと具体的に示してほしい。
-        </p>
-        <TextField
-          variant="outlined"
-          type="number"
-          onChange={(e) => setQ01Bure(e.target.value)}
-          value={q01Bure}
-        />
-       
-      </DIV_question>
-      <DIV_question>
-        <h1>問2</h1>
-        <p>
-          職場でリーダーシップをとる人には、部下を育て、人々を助けることを期待する。
-        </p>
-        <TextField
-          variant="outlined"
-          type="number"
-          onChange={(e) => {
-            setQ02Fam(e.target.value);
-          }}
-          value={q02Fam}
-        />
-        <p>
-          職場でリーダーシップをとる人には、新しいことに挑戦する起業家精神や、画期的なアイディアを重視する革新的な発想、リスクを恐れない挑戦的な姿勢を期待する。
-        </p>
-        <TextField
-          variant="outlined"
-          type="number"
-          onChange={(e) => setQ02Inno(e.target.value)}
-          value={q02Inno}
-        />
-       
-        <p>
-          職場でリーダーシップをとる人には、理想より現実を直視し、フットワーク軽く行動的で、プロセスよりも結果重視であることを期待する。
-        </p>
-        <TextField
-          variant="outlined"
-          type="number"
-          onChange={(e) => setQ02Mar(e.target.value)}
-          value={q02Mar}
-        />
-        
-        <p>
-          職場でリーダーシップをとる人には、人間関係に配慮しつつ人々をうまくまとめ、ムリ・ムダなくスムーズに仕事を進めようとする姿勢を期待する。
-        </p>
-        <TextField
-          variant="outlined"
-          type="number"
-          onChange={(e) => setQ02Bure(e.target.value)}
-          value={q02Bure}
-        />
-        
-      </DIV_question>
-      <DIV_question>
-        <h1>問3</h1>
-        <p>
-          仲間同士のチームワークや、全員で意志が一致すること、みんながしっかり組織や取り組みに参加することを大切にするような職場が望ましい。
-        </p>
-        <TextField
-          variant="outlined"
-          type="number"
-          onChange={(e) => {
-            setQ03Fam(e.target.value);
-          }}
-          value={q03Fam}
-        />
-        <p>
-          独自の発想を持ち、新しく画期的なアイディアを生み出すことが重視され、自由であることを重んじる職場。リスクを恐れず自ら行動を起こすことを奨励してくれるような職場が望ましい。
-        </p>
-        <TextField
-          variant="outlined"
-          type="number"
-          onChange={(e) => setQ03Inno(e.target.value)}
-          value={q03Inno}
-        />
-        
-        <p>
-          組織が顧客のニーズに応えたり、ライバル企業などとの競争を勝ち抜くために、自分にハイレベルな仕事と高い成果が期待されるような実力重視の職場が望ましい。
-        </p>
-        <TextField
-          variant="outlined"
-          type="number"
-          onChange={(e) => setQ03Mar(e.target.value)}
-          value={q03Mar}
-        />
-       
-        <p>
-          簡単にはクビ（解雇）にならないことや、将来にわたって安定して働ける保証を得られる職場。仕事の内容ややり方、配置などに劇的な変化が少なく、明確なルールに基づく管理が行き届いている職場が望ましい。
-        </p>
-        <TextField
-          variant="outlined"
-          type="number"
-          onChange={(e) => setQ03Bure(e.target.value)}
-          value={q03Bure}
-        />
-        
-      </DIV_question>
-      <DIV_question>
-        <h1>問4</h1>
-        <p>
-          人材育成や教育、従業員の能力向上に重きを置く会社が望ましい。また、信頼関係やオープンなコミュニケーション、組織レベルでの取り組みに対する積極的な参加を重視する職場がいいと思う。
-        </p>
-        <TextField
-          variant="outlined"
-          type="number"
-          onChange={(e) => {
-            setQ04Fam(e.target.value);
-          }}
-          value={q04Fam}
-        />
-        
-        <p>
-          新しいビジネスチャンスを開拓したり、次に向けたチャレンジ、何か新しいものを生み出すことに重きを置く会社が望ましい。また、新しいことへの挑戦や、そのような機会を探すことを重視する職場がいいと思う。
-        </p>
-        <TextField
-          variant="outlined"
-          type="number"
-          onChange={(e) => setQ04Inno(e.target.value)}
-          value={q04Inno}
-        />
-        
-        <p>
-          ライバルとの競争に勝ち抜き、目標を達成することに重きを置く会社が望ましい。また、高い目標を達成し、自社がその分野のリーダーになることを重視する職場がいいと思う。
-        </p>
-        <TextField
-          variant="outlined"
-          type="number"
-          onChange={(e) => setQ04Mar(e.target.value)}
-          value={q04Mar}
-        />
-        
-        <p>
-          永続的にビジネスが続くことや商売が安定していることに重きを置く会社が望ましい。また、効率的に仕事を行うこと、組織がきちんと統制されていること、円滑に業務が進むことを重要視する職場がいいと思う。
-        </p>
-        <TextField
-          variant="outlined"
-          type="number"
-          onChange={(e) => setQ04Bure(e.target.value)}
-          value={q04Bure}
-        />
-        
-      </DIV_question>
-      <DIV_question>
-        <h1>問5</h1>
-        <p>
-          人材育成や教育がうまくいっていること、チームワークが成立していること、従業員が組織に尽くしてくれていることこそが、とても重要な成功だと考える会社が望ましい。
-        </p>
-        <TextField
-          variant="outlined"
-          type="number"
-          onChange={(e) => {
-            setQ05Fam(e.target.value);
-          }}
-          value={q05Fam}
-        />
-       
-        <p>
-          自社が独創的または最新の製品を持っていることこそが、とても重要な成功だと考える会社が望ましい。
-        </p>
-        <TextField
-          variant="outlined"
-          type="number"
-          onChange={(e) => setQ05Inno(e.target.value)}
-          value={q05Inno}
-        />
-       
-        <p>
-          顧客に評価されたり、ライバル企業に勝ち抜くことこそが、とても重要な成功だと考える会社が望ましい。
-        </p>
-        <TextField
-          variant="outlined"
-          type="number"
-          onChange={(e) => setQ05Mar(e.target.value)}
-          value={q05Mar}
-        />
-        
-        <p>
-          効率的に仕事が回っていること、安定した品質を持つ商品や安くてよいものを提供できていることこそが、とても重要な成功だと考える会社が望ましい。
-        </p>
-        <TextField
-          variant="outlined"
-          type="number"
-          onChange={(e) => setQ05Bure(e.target.value)}
-          value={q05Bure}
-        />
-        
-      </DIV_question>
-      <DIV_question>
-        <h1>問6</h1>
-        <p>
-          人材育成や教育、従業員の能力向上に重きを置く会社が望ましい。また、信頼関係やオープンなコミュニケーション、組織レベルでの取り組みに対する積極的な参加を重視する職場がいいと思う。
-        </p>
-        <TextField
-          variant="outlined"
-          type="number"
-          onChange={(e) => {
-            setQ06Fam(e.target.value);
-          }}
-          value={q06Fam}
-        />
-       
-        <p>
-          新しいビジネスチャンスを開拓したり、次に向けたチャレンジ、何か新しいものを生み出すことに重きを置く会社が望ましい。また、新しいことへの挑戦や、そのような機会を探すことを重視する職場がいいと思う。
-        </p>
-        <TextField
-          variant="outlined"
-          type="number"
-          onChange={(e) => setQ06Inno(e.target.value)}
-          value={q06Inno}
-        />
-       
-        <p>
-          ライバルとの競争に勝ち抜き、目標を達成することに重きを置く会社が望ましい。また、高い目標を達成し、自社がその分野のリーダーになることを重視する職場がいいと思う。
-        </p>
-        <TextField
-          variant="outlined"
-          type="number"
-          onChange={(e) => setQ06Mar(e.target.value)}
-          value={q06Mar}
-        />
-        
-        <p>
-          永続的にビジネスが続くことや商売が安定していることに重きを置く会社が望ましい。また、効率的に仕事を行うこと、組織がきちんと統制されていること、円滑に業務が進むことを重要視する職場がいいと思う。
-        </p>
-        <TextField
-          variant="outlined"
-          type="number"
-          onChange={(e) => setQ06Bure(e.target.value)}
-          value={q06Bure}
-        />
-      </DIV_question>
-      <PrimaryButton
-        firstQues={firstQues}
-        secondQues={secondQues}
-        thirdQues={thirdQues}
-        fourthQues={fourthQues}
-        fifthQues={fifthQues}
-        sixthQues={sixthQues}
-        openModal={openModal}
+    <DIV_chart>
+      <Header
+         ruleShow={ruleShow}
+         setRuleShow={setRuleShow}
       />
-      <Modal
-        setShow={setShow}
-        show={show}
-        firstQues={firstQues}
-        secondQues={secondQues}
-        thirdQues={thirdQues}
-        fourthQues={fourthQues}
-        fifthQues={fifthQues}
-        sixthQues={sixthQues}
-        resultFam={resultFam}
-        resultInno={resultInno}
-        resultMar={resultMar}
-        resultBure={resultBure}
-      />
-    </>
+      <DIV_chartMain>
+        <DIV_question>
+          <DIV_questionPart>
+            <h1>問１</h1>
+            <p>
+              指示系統によるしっかりとした上下関係重視というよりは、上司や先輩、または（将来）部下や後輩などともゆるやかで、フレンドリーな関係性が構築されている職場がいい。同僚や上司・部下は家族の延長のような存在であってほしいし、価値観や考えはお互いしっかり共有しておきたいと思う。
+            </p>
+            <TextField
+              variant="outlined"
+              type="number"
+              onChange={(e) => {
+                setQ01Fam(e.target.value);
+              }}
+              value={q01Fam}
+              size="small"
+            />
+          </DIV_questionPart>
+          <DIV_questionPart>
+            <p>
+              新しいことに積極的で、起業家精神にあふれるクリエイティブな職場がいい。同僚や上司・部下はリスクを恐れず進んで革新的な選択をしていく人たちがいい。
+            </p>
+            <TextField
+              variant="outlined"
+              type="number"
+              onChange={(e) => setQ01Inno(e.target.value)}
+              value={q01Inno}
+              size="small"
+            />
+          </DIV_questionPart>
+          <DIV_questionPart>
+            <p>
+              プロセスや過程での努力などではなく、結果や成果、アウトプットで評価をしてくれるような職場がいい。仕事をする上では、達成すべき目標や目的を明確に示してほしい。
+            </p>
+            <TextField
+              variant="outlined"
+              type="number"
+              onChange={(e) => setQ01Mar(e.target.value)}
+              value={q01Mar}
+              size="small"
+            />
+          </DIV_questionPart>
+          <DIV_questionPart>
+            <p>
+              仕事の役割分担が明確になされていて、自分が何をすべきかをしっかり指示してくれるような職場がいい。自分個人の発想やオリジナリティに基づいて臨機応変に仕事をするというよりは、どうすればよいのかという方法や手続きをきちんと具体的に示してほしい。
+            </p>
+            <TextField
+              variant="outlined"
+              type="number"
+              onChange={(e) => setQ01Bure(e.target.value)}
+              value={q01Bure}
+              size="small"
+            />
+          </DIV_questionPart>
+        </DIV_question>
+        <DIV_question>
+          <h1>問2</h1>
+          <DIV_questionPart>
+            <p>
+              職場でリーダーシップをとる人には、部下を育て、人々を助けることを期待する。
+            </p>
+            <TextField
+              variant="outlined"
+              type="number"
+              onChange={(e) => {
+                setQ02Fam(e.target.value);
+              }}
+              value={q02Fam}
+              size="small"
+            />
+          </DIV_questionPart>
+          <DIV_questionPart>
+            <p>
+              職場でリーダーシップをとる人には、新しいことに挑戦する起業家精神や、画期的なアイディアを重視する革新的な発想、リスクを恐れない挑戦的な姿勢を期待する。
+            </p>
+            <TextField
+              variant="outlined"
+              type="number"
+              onChange={(e) => setQ02Inno(e.target.value)}
+              value={q02Inno}
+              size="small"
+            />
+          </DIV_questionPart>
+          <DIV_questionPart>
+            <p>
+              職場でリーダーシップをとる人には、理想より現実を直視し、フットワーク軽く行動的で、プロセスよりも結果重視であることを期待する。
+            </p>
+            <TextField
+              variant="outlined"
+              type="number"
+              onChange={(e) => setQ02Mar(e.target.value)}
+              value={q02Mar}
+              size="small"
+            />
+          </DIV_questionPart>
+          <DIV_questionPart>
+            <p>
+              職場でリーダーシップをとる人には、人間関係に配慮しつつ人々をうまくまとめ、ムリ・ムダなくスムーズに仕事を進めようとする姿勢を期待する。
+            </p>
+            <TextField
+              variant="outlined"
+              type="number"
+              onChange={(e) => setQ02Bure(e.target.value)}
+              value={q02Bure}
+              size="small"
+            />
+          </DIV_questionPart>
+        </DIV_question>
+        <DIV_question>
+          <h1>問3</h1>
+          <DIV_questionPart>
+            <p>
+              仲間同士のチームワークや、全員で意志が一致すること、みんながしっかり組織や取り組みに参加することを大切にするような職場が望ましい。
+            </p>
+            <TextField
+              variant="outlined"
+              type="number"
+              onChange={(e) => {
+                setQ03Fam(e.target.value);
+              }}
+              value={q03Fam}
+              size="small"
+            />
+          </DIV_questionPart>
+          <DIV_questionPart>
+            <p>
+              独自の発想を持ち、新しく画期的なアイディアを生み出すことが重視され、自由であることを重んじる職場。リスクを恐れず自ら行動を起こすことを奨励してくれるような職場が望ましい。
+            </p>
+            <TextField
+              variant="outlined"
+              type="number"
+              onChange={(e) => setQ03Inno(e.target.value)}
+              value={q03Inno}
+              size="small"
+            />
+          </DIV_questionPart>
+          <DIV_questionPart>
+            <p>
+              組織が顧客のニーズに応えたり、ライバル企業などとの競争を勝ち抜くために、自分にハイレベルな仕事と高い成果が期待されるような実力重視の職場が望ましい。
+            </p>
+            <TextField
+              variant="outlined"
+              type="number"
+              onChange={(e) => setQ03Mar(e.target.value)}
+              value={q03Mar}
+              size="small"
+            />
+          </DIV_questionPart>
+          <DIV_questionPart>
+            <p>
+              簡単にはクビ（解雇）にならないことや、将来にわたって安定して働ける保証を得られる職場。仕事の内容ややり方、配置などに劇的な変化が少なく、明確なルールに基づく管理が行き届いている職場が望ましい。
+            </p>
+            <TextField
+              variant="outlined"
+              type="number"
+              onChange={(e) => setQ03Bure(e.target.value)}
+              value={q03Bure}
+              size="small"
+            />
+          </DIV_questionPart>
+        </DIV_question>
+        <DIV_question>
+          <h1>問4</h1>
+          <DIV_questionPart>
+            <p>
+              人材育成や教育、従業員の能力向上に重きを置く会社が望ましい。また、信頼関係やオープンなコミュニケーション、組織レベルでの取り組みに対する積極的な参加を重視する職場がいいと思う。
+            </p>
+            <TextField
+              variant="outlined"
+              type="number"
+              onChange={(e) => {
+                setQ04Fam(e.target.value);
+              }}
+              value={q04Fam}
+              size="small"
+            />
+          </DIV_questionPart>
+          <DIV_questionPart>
+            <p>
+              新しいビジネスチャンスを開拓したり、次に向けたチャレンジ、何か新しいものを生み出すことに重きを置く会社が望ましい。また、新しいことへの挑戦や、そのような機会を探すことを重視する職場がいいと思う。
+            </p>
+            <TextField
+              variant="outlined"
+              type="number"
+              onChange={(e) => setQ04Inno(e.target.value)}
+              value={q04Inno}
+              size="small"
+            />
+          </DIV_questionPart>
+          <DIV_questionPart>
+            <p>
+              ライバルとの競争に勝ち抜き、目標を達成することに重きを置く会社が望ましい。また、高い目標を達成し、自社がその分野のリーダーになることを重視する職場がいいと思う。
+            </p>
+            <TextField
+              variant="outlined"
+              type="number"
+              onChange={(e) => setQ04Mar(e.target.value)}
+              value={q04Mar}
+              size="small"
+            />
+          </DIV_questionPart>
+          <DIV_questionPart>
+            <p>
+              永続的にビジネスが続くことや商売が安定していることに重きを置く会社が望ましい。また、効率的に仕事を行うこと、組織がきちんと統制されていること、円滑に業務が進むことを重要視する職場がいいと思う。
+            </p>
+            <TextField
+              variant="outlined"
+              type="number"
+              onChange={(e) => setQ04Bure(e.target.value)}
+              value={q04Bure}
+              size="small"
+            />
+          </DIV_questionPart>
+        </DIV_question>
+        <DIV_question>
+          <h1>問5</h1>
+          <DIV_questionPart>
+            <p>
+              人材育成や教育がうまくいっていること、チームワークが成立していること、従業員が組織に尽くしてくれていることこそが、とても重要な成功だと考える会社が望ましい。
+            </p>
+            <TextField
+              variant="outlined"
+              type="number"
+              onChange={(e) => {
+                setQ05Fam(e.target.value);
+              }}
+              value={q05Fam}
+              size="small"
+            />
+          </DIV_questionPart>
+          <DIV_questionPart>
+            <p>
+              自社が独創的または最新の製品を持っていることこそが、とても重要な成功だと考える会社が望ましい。
+            </p>
+            <TextField
+              variant="outlined"
+              type="number"
+              onChange={(e) => setQ05Inno(e.target.value)}
+              value={q05Inno}
+              size="small"
+            />
+          </DIV_questionPart>
+          <DIV_questionPart>
+            <p>
+              顧客に評価されたり、ライバル企業に勝ち抜くことこそが、とても重要な成功だと考える会社が望ましい。
+            </p>
+            <TextField
+              variant="outlined"
+              type="number"
+              onChange={(e) => setQ05Mar(e.target.value)}
+              value={q05Mar}
+              size="small"
+            />
+          </DIV_questionPart>
+          <DIV_questionPart>
+            <p>
+              効率的に仕事が回っていること、安定した品質を持つ商品や安くてよいものを提供できていることこそが、とても重要な成功だと考える会社が望ましい。
+            </p>
+            <TextField
+              variant="outlined"
+              type="number"
+              onChange={(e) => setQ05Bure(e.target.value)}
+              value={q05Bure}
+              size="small"
+            />
+          </DIV_questionPart>
+        </DIV_question>
+        <DIV_question>
+          <h1>問6</h1>
+          <DIV_questionPart>
+            <p>
+              人材育成や教育、従業員の能力向上に重きを置く会社が望ましい。また、信頼関係やオープンなコミュニケーション、組織レベルでの取り組みに対する積極的な参加を重視する職場がいいと思う。
+            </p>
+            <TextField
+              variant="outlined"
+              type="number"
+              onChange={(e) => {
+                setQ06Fam(e.target.value);
+              }}
+              value={q06Fam}
+              size="small"
+            />
+          </DIV_questionPart>
+          <DIV_questionPart>
+            <p>
+              新しいビジネスチャンスを開拓したり、次に向けたチャレンジ、何か新しいものを生み出すことに重きを置く会社が望ましい。また、新しいことへの挑戦や、そのような機会を探すことを重視する職場がいいと思う。
+            </p>
+            <TextField
+              variant="outlined"
+              type="number"
+              onChange={(e) => setQ06Inno(e.target.value)}
+              value={q06Inno}
+              size="small"
+            />
+          </DIV_questionPart>
+          <DIV_questionPart>
+            <p>
+              ライバルとの競争に勝ち抜き、目標を達成することに重きを置く会社が望ましい。また、高い目標を達成し、自社がその分野のリーダーになることを重視する職場がいいと思う。
+            </p>
+            <TextField
+              variant="outlined"
+              type="number"
+              onChange={(e) => setQ06Mar(e.target.value)}
+              value={q06Mar}
+              size="small"
+            />
+          </DIV_questionPart>
+          <DIV_questionPart>
+            <p>
+              永続的にビジネスが続くことや商売が安定していることに重きを置く会社が望ましい。また、効率的に仕事を行うこと、組織がきちんと統制されていること、円滑に業務が進むことを重要視する職場がいいと思う。
+            </p>
+            <TextField
+              variant="outlined"
+              type="number"
+              onChange={(e) => setQ06Bure(e.target.value)}
+              value={q06Bure}
+              size="small"
+            />
+          </DIV_questionPart>
+        </DIV_question>
+        <DIV_button>
+          <PrimaryButton
+            firstQues={firstQues}
+            secondQues={secondQues}
+            thirdQues={thirdQues}
+            fourthQues={fourthQues}
+            fifthQues={fifthQues}
+            sixthQues={sixthQues}
+            openModal={openModal}
+            trueText="結果を確認する"
+            falseText="合計値が100になっていない質問があります"
+          />
+        </DIV_button>
+
+        <Modal
+          setShow={setShow}
+          show={show}
+          firstQues={firstQues}
+          secondQues={secondQues}
+          thirdQues={thirdQues}
+          fourthQues={fourthQues}
+          fifthQues={fifthQues}
+          sixthQues={sixthQues}
+          resultFam={resultFam}
+          resultInno={resultInno}
+          resultMar={resultMar}
+          resultBure={resultBure}
+        />
+        <Rule 
+          ruleShow={ruleShow}
+          setRuleShow={setRuleShow}
+        />
+      </DIV_chartMain>
+    </DIV_chart>
   );
 };
 
